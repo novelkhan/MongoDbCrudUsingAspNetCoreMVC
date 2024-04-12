@@ -11,9 +11,10 @@ namespace MongoDbCrudUsingAspNetCoreMVC.Services
     {
         private readonly IMongoCollection<Person> _collection;
 
-        public MongoDbService()
+        public MongoDbService(IConfiguration configuration)
         {
-            var client = new MongoClient("mongodb+srv://nvl:q3mfFJz5HM68eLNk@cluster1.2auwomk.mongodb.net/PersonDB");
+            //var client = new MongoClient("mongodb+srv://nvl:q3mfFJz5HM68eLNk@cluster1.2auwomk.mongodb.net/PersonDB");
+            var client = new MongoClient(configuration["ConnectionStrings:DefaultConnection"]);
             var database = client.GetDatabase("PersonDB");
             _collection = database.GetCollection<Person>("Persons");
         }
